@@ -15,7 +15,6 @@ public class Manager {
     private HashMap<Integer, SubTask> subTasks = new HashMap<>();
 
     int uniqueID = 0;
-    ArrayList<Integer> freeIds = new ArrayList<>();
     final String NEW = "NEW";
     final String IN_PROGRESS = "IN_PROGRESS";
     final String DONE = "DONE";
@@ -40,8 +39,6 @@ public class Manager {
         epics.clear();
 
         uniqueID = 0;
-        freeIds.clear();
-
     }
 
     public Task takeTaskByID(int id) {
@@ -136,19 +133,22 @@ public class Manager {
 
         if (tasks.containsKey(id))	{
             tasks.remove(id);
-            freeIds.add(id);
         }
         else if (epics.containsKey(id))	{
+            // Removing all subtasks in this epic.
+            ArrayList<Integer> subTasksIdToRemove = epics.get(id).getSubTasksID();
+            for (Integer key :
+                    subTasksIdToRemove) {
+                subTasks.remove(key);
+            }
+            // Removing epic.
             epics.remove(id);
-            freeIds.add(id);
         }
         else if (subTasks.containsKey(id))	{
+            // Удаление id из массива подзадач эпика.
             epics.get(subTasks.get(id).getTaskID()).removeSubTask(id);
+            // Удаление самой подзадачи.
             subTasks.remove(id);
-            freeIds.add(id);
-        }
-        else {
-            System.out.println("ID not found.");
         }
     }
 
@@ -170,11 +170,6 @@ public class Manager {
     }
 
     private int getUniqueID()	{
-
-        if (!freeIds.isEmpty())	{
-            return freeIds.remove(freeIds.size() - 1);
-        }
-
         return uniqueID++;
     }
 }
