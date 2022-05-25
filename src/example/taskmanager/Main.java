@@ -1,0 +1,54 @@
+package example.taskmanager;
+
+
+import example.taskmanager.manager.Manager;
+import example.taskmanager.task.Epic;
+import example.taskmanager.task.SubTask;
+import example.taskmanager.task.Task;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Manager manager = new Manager();
+
+        // Creating new objects.
+        Task task1 = new Task("task1_name", "something about task1");
+        Task task2 = new Task("task2_name", "something about task2");
+        Epic epic1 = new Epic("epic1_name", "epic1_description");
+        Epic epic2 = new Epic("epic2_name", "epic2_description");
+        SubTask sub1_1 = new SubTask("sub1_name", "sub1_descr", epic1.getTaskID());
+        SubTask sub1_2 = new SubTask("sub2_name", "sub2_descr", epic1.getTaskID());
+        SubTask sub2_1 = new SubTask("sub3_name", "sub3_descr", epic2.getTaskID());
+
+        // Adding a new objects with manager.
+        manager.addTask(task1);
+        manager.addTask(task2);
+        manager.addTask(epic1);
+        manager.addTask(epic2);
+        manager.addTask(sub1_1, epic1);
+        manager.addTask(sub1_2, epic1);
+        manager.addTask(sub2_1, epic2);
+
+        // Test output.
+        System.out.println(manager.listAllTasks());
+        System.out.println(manager.listAllEpics());
+        System.out.println(manager.listAllSubTasks());
+
+        // Objects in work...
+        sub1_1.setStatus("IN_PROGRESS");
+        sub1_2.setStatus("DONE");
+        sub2_1.setStatus("DONE");
+
+        // Update objects with manager.
+        manager.updateSubTask(sub1_1);
+        manager.updateSubTask(sub1_2);
+        manager.updateSubTask(sub2_1);
+
+        // Test output after changing.
+        System.out.println("------------after update------------");
+        System.out.println(manager.listAllTasks());
+        System.out.println(manager.listAllEpics());
+        System.out.println(manager.listAllSubTasks());
+    }
+}
