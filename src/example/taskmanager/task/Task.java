@@ -2,27 +2,17 @@ package example.taskmanager.task;
 
 public class Task {
 
-    final private String NEW = "NEW";
-    final private String IN_PROGRESS = "IN_PROGRESS";
-    final private String DONE = "DONE";
-
-    private Status status1;
+    private Status status;
     private String nameTask;
     private String descriptionTask;
     private int taskID;
-    private String status;
 
-    // We have assign NEW-status to the new object.
-    // Empty task in this case.
     public Task() {
-//        setStatus(NEW);
-        this.status1 = Status.NEW;
+        this.status = Status.NEW;
     }
 
-    // Task with descriptions in this case.
     public Task(String nameTask, String descriptionTask) {
-//        setStatus(NEW);
-        this.status1 = Status.NEW;
+        this.status = Status.NEW;
         this.nameTask = nameTask;
         this.descriptionTask = descriptionTask;
     }
@@ -39,7 +29,7 @@ public class Task {
         this.taskID = taskID;
     }
 
-    public void setStatus(String status)   {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
@@ -60,8 +50,8 @@ public class Task {
         return taskID;
     }
 
-    public String getStatus() {
-        return status;
+    public Status getStatus() {
+        return this.status;
     }
 
 }

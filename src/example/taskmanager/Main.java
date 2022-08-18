@@ -4,6 +4,7 @@ import example.taskmanager.manager.InMemoryTaskManager;
 import example.taskmanager.task.Epic;
 import example.taskmanager.task.SubTask;
 import example.taskmanager.task.Task;
+import example.taskmanager.task.Status;
 
 public class Main {
 
@@ -35,9 +36,9 @@ public class Main {
         System.out.println(manager.listAllSubTasks());
 
         // Objects in work...
-        sub1_1.setStatus("IN_PROGRESS");
-        sub1_2.setStatus("DONE");
-        sub2_1.setStatus("DONE");
+        sub1_1.setStatus(Status.IN_PROGRESS);
+        sub1_2.setStatus(Status.DONE);
+        sub2_1.setStatus(Status.DONE);
 
         // Update objects with manager.
         manager.updateSubTask(sub1_1);

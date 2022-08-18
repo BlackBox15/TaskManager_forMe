@@ -1,6 +1,7 @@
 package example.taskmanager.manager;
 
 import example.taskmanager.task.Epic;
+import example.taskmanager.task.Status;
 import example.taskmanager.task.SubTask;
 import example.taskmanager.task.Task;
 
@@ -118,24 +119,24 @@ public class InMemoryTaskManager implements TaskManager {
 
         subTasks.put(subTask.getTaskID(), subTask);
 
-        if (subTask.getStatus() == IN_PROGRESS)   {
-            epics.get(epicID).setStatus(IN_PROGRESS);
+        if (subTask.getStatus() == Status.IN_PROGRESS)   {
+            epics.get(epicID).setStatus(Status.IN_PROGRESS);
         }
-        else if (subTask.getStatus() == DONE)   {
+        else if (subTask.getStatus() == Status.DONE)   {
             allSubTasksDone = true;
 
             subTasksID = epics.get(epicID).getSubTasksID();
 
             for (Integer key :
                     subTasksID) {
-                allSubTasksDone &= (subTasks.get(key).getStatus() == DONE);
+                allSubTasksDone &= (subTasks.get(key).getStatus() == Status.DONE);
             }
 
             if (allSubTasksDone) {
-                epics.get(epicID).setStatus(DONE);
+                epics.get(epicID).setStatus(Status.DONE);
             }
             else {
-                epics.get(epicID).setStatus(IN_PROGRESS);
+                epics.get(epicID).setStatus(Status.IN_PROGRESS);
             }
         }
 
