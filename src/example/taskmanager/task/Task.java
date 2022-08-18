@@ -7,12 +7,6 @@ public class Task {
     private String descriptionTask;
     private int taskID;
 
-    public Task() {
-        this.status = Status.NEW;
-        this.nameTask = "";
-        this.descriptionTask = "";
-    }
-
     public Task(String nameTask, String descriptionTask) {
         this.status = Status.NEW;
         this.nameTask = nameTask;

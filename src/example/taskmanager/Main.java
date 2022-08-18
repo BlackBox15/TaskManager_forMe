@@ -17,11 +17,11 @@ public class Main {
         Task task2 = new Task("task2_name", "something about task2");
         Epic epic1 = new Epic("epic1_name", "epic1_description");
         Epic epic2 = new Epic("epic2_name", "epic2_description");
-        SubTask sub1_1 = new SubTask("sub1_name", "sub1_descr", epic1.getTaskID());
-        SubTask sub1_2 = new SubTask("sub2_name", "sub2_descr", epic1.getTaskID());
-        SubTask sub2_1 = new SubTask("sub3_name", "sub3_descr", epic2.getTaskID());
+        SubTask sub1_1 = new SubTask("sub1_name", "sub1_descr");
+        SubTask sub1_2 = new SubTask("sub2_name", "sub2_descr");
+        SubTask sub2_1 = new SubTask("sub3_name", "sub3_descr");
 
-        // Adding a new objects with manager.
+        // Adding a new objects with manager (attaching IDs).
         manager.addTask(task1);
         manager.addTask(task2);
         manager.addTask(epic1);
