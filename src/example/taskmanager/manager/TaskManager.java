@@ -16,11 +16,11 @@ import java.util.Collection;
 
      void removeAll();
 
-     Task getTask(int id);
+     Task getTask(int id) throws Exception;
 
-     Epic getEpic(int id);
+     Epic getEpic(int id) throws Exception;
 
-     SubTask getSubTask(int id);
+     SubTask getSubTask(int id) throws Exception;
 
     // Add all type tasks.
      void addTask(Task task);
@@ -41,6 +41,4 @@ import java.util.Collection;
      void removeById(int id);
 
      ArrayList<SubTask> listSubTasksByEpic(Epic epic);
-
-    int getUniqueID();
 }

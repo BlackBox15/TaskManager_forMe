@@ -2,19 +2,7 @@ package example.taskmanager.task;
 
 public class SubTask extends Task {
 
-    private int epicID;
-
-    public SubTask() {
-        super();
-    }
-
-    public SubTask(String nameTask, String descriptionTask) {
-        super(nameTask, descriptionTask);
-    }
-
-    public SubTask(int epicID) {
-        this.epicID = epicID;
-    }
+    private int epicID;     // Parent Epic ID.
 
     public SubTask(String nameTask, String descriptionTask, int epicID) {
         super(nameTask, descriptionTask);
@@ -22,7 +10,7 @@ public class SubTask extends Task {
     }
 
     public int getEpicID() {
-        return epicID;
+        return this.epicID;
     }
 
     public void setEpicID(int epicID) {

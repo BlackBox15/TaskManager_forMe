@@ -9,6 +9,8 @@ public class Task {
 
     public Task() {
         this.status = Status.NEW;
+        this.nameTask = "";
+        this.descriptionTask = "";
     }
 
     public Task(String nameTask, String descriptionTask) {

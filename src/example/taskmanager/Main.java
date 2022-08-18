@@ -30,7 +30,7 @@ public class Main {
         manager.addTask(sub1_2, epic1);
         manager.addTask(sub2_1, epic2);
 
-        // Test output.
+        // Test output (using customizable toString()).
         System.out.println(manager.listAllTasks());
         System.out.println(manager.listAllEpics());
         System.out.println(manager.listAllSubTasks());

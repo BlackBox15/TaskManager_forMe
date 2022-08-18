@@ -1,24 +1,20 @@
 package example.taskmanager.manager;
 
-import example.taskmanager.task.Epic;
-import example.taskmanager.task.Status;
-import example.taskmanager.task.SubTask;
-import example.taskmanager.task.Task;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import example.taskmanager.task.Status;
+import example.taskmanager.task.Task;
+import example.taskmanager.task.Epic;
+import example.taskmanager.task.SubTask;
 
 public class InMemoryTaskManager implements TaskManager {
 
-    private HashMap<Integer, Epic> epics = new HashMap<>();
-    private HashMap<Integer, Task> tasks = new HashMap<>();
-    private HashMap<Integer, SubTask> subTasks = new HashMap<>();
+    private final HashMap<Integer, Epic> epics = new HashMap<>();
+    private final HashMap<Integer, Task> tasks = new HashMap<>();
+    private final HashMap<Integer, SubTask> subTasks = new HashMap<>();
 
     int uniqueID = 0;
-    final String NEW = "NEW";
-    final String IN_PROGRESS = "IN_PROGRESS";
-    final String DONE = "DONE";
 
     @Override
     public Collection<Task> listAllTasks() {
@@ -37,49 +33,47 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void removeAll()	{
-
         tasks.clear();
         subTasks.clear();
         epics.clear();
-
         uniqueID = 0;
     }
 
-    public Task getTask(int id) {
+    public Task getTask(int id) throws Exception {
         if (tasks.containsKey(id)) {
             return tasks.get(id);
         }
-        return null;
+        throw new Exception("No Task with ID!");
     }
 
     @Override
-    public Epic getEpic(int id) {
+    public Epic getEpic(int id) throws Exception {
         if (epics.containsKey(id))  {
             return epics.get(id);
         }
-        return null;
+        throw new Exception("No Epic with ID!");
     }
 
     @Override
-    public SubTask getSubTask(int id)  {
+    public SubTask getSubTask(int id) throws Exception {
         if (subTasks.containsKey(id))   {
             return subTasks.get(id);
         }
-        return null;
+        throw new Exception("No SubTask with ID!");
     }
 
 // Add all type tasks.
-    @Override
-    public void addTask(Task task)	{
-        task.setTaskID(getUniqueID());
-        tasks.put(task.getTaskID(), task);
-    }
+@Override
+public void addTask(Task task)	{
+    task.setTaskID(getUniqueID());
+    tasks.put(task.getTaskID(), task);
+}
 
-    @Override
-    public void addTask(Epic epic)	{
-        epic.setTaskID(getUniqueID());
-        epics.put(epic.getTaskID(), epic);
-    }
+@Override
+public void addTask(Epic epic)	{
+    epic.setTaskID(getUniqueID());
+    epics.put(epic.getTaskID(), epic);
+}
 
     @Override
     public void addTask(SubTask subTask)	{
@@ -184,9 +178,7 @@ public class InMemoryTaskManager implements TaskManager {
         return subTasksByEpic;
     }
 
-    @Override
-//    Этот метод может быть убрать из интерфейса, поскольку он носит роль вспомогательного.
-    public int getUniqueID()	{
+    private int getUniqueID()	{
         return uniqueID++;
     }
 }
