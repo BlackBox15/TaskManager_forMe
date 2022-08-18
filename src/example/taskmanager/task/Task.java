@@ -6,17 +6,23 @@ public class Task {
     final private String IN_PROGRESS = "IN_PROGRESS";
     final private String DONE = "DONE";
 
+    private Status status1;
     private String nameTask;
     private String descriptionTask;
     private int taskID;
     private String status;
 
+    // We have assign NEW-status to the new object.
+    // Empty task in this case.
     public Task() {
-        setStatus(NEW);
+//        setStatus(NEW);
+        this.status1 = Status.NEW;
     }
 
+    // Task with descriptions in this case.
     public Task(String nameTask, String descriptionTask) {
-        setStatus(NEW);
+//        setStatus(NEW);
+        this.status1 = Status.NEW;
         this.nameTask = nameTask;
         this.descriptionTask = descriptionTask;
     }
