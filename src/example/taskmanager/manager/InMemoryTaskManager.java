@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
-public class Manager {
+public class InMemoryTaskManager implements TaskManager {
 
     private HashMap<Integer, Epic> epics = new HashMap<>();
     private HashMap<Integer, Task> tasks = new HashMap<>();
@@ -19,19 +19,22 @@ public class Manager {
     final String IN_PROGRESS = "IN_PROGRESS";
     final String DONE = "DONE";
 
-
+    @Override
     public Collection<Task> listAllTasks() {
         return tasks.values();
     }
 
+    @Override
     public Collection<Epic> listAllEpics() {
         return epics.values();
     }
 
+    @Override
     public Collection<SubTask> listAllSubTasks() {
         return subTasks.values();
     }
 
+    @Override
     public void removeAll()	{
 
         tasks.clear();
@@ -41,21 +44,23 @@ public class Manager {
         uniqueID = 0;
     }
 
-    public Task takeTaskByID(int id) {
+    public Task getTask(int id) {
         if (tasks.containsKey(id)) {
             return tasks.get(id);
         }
         return null;
     }
 
-    public Epic takeEpicByID(int id) {
+    @Override
+    public Epic getEpic(int id) {
         if (epics.containsKey(id))  {
             return epics.get(id);
         }
         return null;
     }
 
-    public SubTask takeSubTaskByID(int id)  {
+    @Override
+    public SubTask getSubTask(int id)  {
         if (subTasks.containsKey(id))   {
             return subTasks.get(id);
         }
@@ -63,16 +68,19 @@ public class Manager {
     }
 
 // Add all type tasks.
+    @Override
     public void addTask(Task task)	{
         task.setTaskID(getUniqueID());
         tasks.put(task.getTaskID(), task);
     }
 
+    @Override
     public void addTask(Epic epic)	{
         epic.setTaskID(getUniqueID());
         epics.put(epic.getTaskID(), epic);
     }
 
+    @Override
     public void addTask(SubTask subTask)	{
         int epicID = subTask.getEpicID();
 
@@ -82,6 +90,7 @@ public class Manager {
         epics.get(epicID).addSubTask(subTask.getTaskID());
     }
 
+    @Override
     public void addTask(SubTask subTask, Epic epic) {
         subTask.setTaskID(getUniqueID());
         subTask.setEpicID(epic.getTaskID());
@@ -90,14 +99,17 @@ public class Manager {
     }
 
 // Update all type tasks.
+    @Override
     public void updateTask(Task task) {
         tasks.put(task.getTaskID(), task);
     }
 
+    @Override
     public void updateEpic(Epic epic) {
         epics.put(epic.getTaskID(), epic);
     }
 
+    @Override
     public void updateSubTask(SubTask subTask) {
 
         int epicID = subTask.getEpicID();
@@ -129,6 +141,7 @@ public class Manager {
 
     }
 
+    @Override
     public void removeById(int id)	{
 
         if (tasks.containsKey(id))	{
@@ -152,6 +165,7 @@ public class Manager {
         }
     }
 
+    @Override
     public ArrayList<SubTask> listSubTasksByEpic(Epic epic)   {
         int epicID = epic.getTaskID();
         ArrayList<SubTask> subTasksByEpic = new ArrayList<>();
@@ -169,7 +183,9 @@ public class Manager {
         return subTasksByEpic;
     }
 
-    private int getUniqueID()	{
+    @Override
+//    Этот метод может быть убрать из интерфейса, поскольку он носит роль вспомогательного.
+    public int getUniqueID()	{
         return uniqueID++;
     }
 }

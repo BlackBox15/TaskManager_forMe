@@ -1,6 +1,6 @@
 package example.taskmanager;
 
-import example.taskmanager.manager.Manager;
+import example.taskmanager.manager.InMemoryTaskManager;
 import example.taskmanager.task.Epic;
 import example.taskmanager.task.SubTask;
 import example.taskmanager.task.Task;
@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Manager manager = new Manager();
+        InMemoryTaskManager manager = new InMemoryTaskManager();
 
         // Creating new objects.
         Task task1 = new Task("task1_name", "something about task1");
