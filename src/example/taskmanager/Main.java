@@ -8,7 +8,7 @@ import example.taskmanager.task.Status;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         InMemoryTaskManager manager = new InMemoryTaskManager();
 
@@ -50,5 +50,10 @@ public class Main {
         System.out.println(manager.listAllTasks());
         System.out.println(manager.listAllEpics());
         System.out.println(manager.listAllSubTasks());
+
+        // Another test.
+        System.out.println("------------another test with missing ID------------");
+        System.out.println(manager.getTask(32353453));
+        System.out.println(manager.getEpic(4234234));
     }
 }

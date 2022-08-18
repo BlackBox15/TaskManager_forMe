@@ -43,7 +43,7 @@ public class InMemoryTaskManager implements TaskManager {
         if (tasks.containsKey(id)) {
             return tasks.get(id);
         }
-        throw new Exception("No Task with ID!");
+        throw new Exception("Missing ID.");
     }
 
     @Override
@@ -51,7 +51,7 @@ public class InMemoryTaskManager implements TaskManager {
         if (epics.containsKey(id))  {
             return epics.get(id);
         }
-        throw new Exception("No Epic with ID!");
+        throw new Exception("Missing ID.");
     }
 
     @Override
@@ -59,20 +59,20 @@ public class InMemoryTaskManager implements TaskManager {
         if (subTasks.containsKey(id))   {
             return subTasks.get(id);
         }
-        throw new Exception("No SubTask with ID!");
+        throw new Exception("Missing ID.");
     }
 
-// Add all type tasks.
-@Override
-public void addTask(Task task)	{
-    task.setTaskID(getUniqueID());
-    tasks.put(task.getTaskID(), task);
-}
+    // Add all type tasks.
+    @Override
+    public void addTask(Task task)	{
+        task.setTaskID(getUniqueID());
+        tasks.put(task.getTaskID(), task);
+    }
 
-@Override
-public void addTask(Epic epic)	{
-    epic.setTaskID(getUniqueID());
-    epics.put(epic.getTaskID(), epic);
+    @Override
+    public void addTask(Epic epic)	{
+        epic.setTaskID(getUniqueID());
+        epics.put(epic.getTaskID(), epic);
 }
 
     @Override
@@ -176,6 +176,11 @@ public void addTask(Epic epic)	{
             }
         }
         return subTasksByEpic;
+    }
+
+    @Override
+    public void getHistory() {
+
     }
 
     private int getUniqueID()	{

@@ -27,9 +27,9 @@ import java.util.Collection;
 
      void addTask(Epic epic);
 
-     void addTask(SubTask subTask);
-
      void addTask(SubTask subTask, Epic epic);
+
+     void addTask(SubTask subTask);
 
     // Update all type tasks.
      void updateTask(Task task);
@@ -41,4 +41,6 @@ import java.util.Collection;
      void removeById(int id);
 
      ArrayList<SubTask> listSubTasksByEpic(Epic epic);
+
+     void getHistory();
 }
