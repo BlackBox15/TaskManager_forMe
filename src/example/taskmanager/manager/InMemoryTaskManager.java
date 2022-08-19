@@ -16,7 +16,6 @@ public class InMemoryTaskManager implements TaskManager {
     private final HashMap<Integer, Epic> epics = new HashMap<>();
     private final HashMap<Integer, Task> tasks = new HashMap<>();
     private final HashMap<Integer, SubTask> subTasks = new HashMap<>();
-    private HashMap<Integer, TypeTask> historyMap = new HashMap<>();
 
     private List<Task> historyList = new ArrayList<>();
     int uniqueID = 0;

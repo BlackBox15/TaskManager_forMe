@@ -2,7 +2,7 @@ package example.taskmanager.manager;
 
 public class Managers {
 
-    public void getDefault() {
-
+    public static void getDefault() {
+        // just a comment
     }
 }
