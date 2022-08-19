@@ -3,7 +3,6 @@ package example.taskmanager.manager;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 
 import example.taskmanager.task.Status;
 import example.taskmanager.task.Task;
@@ -12,13 +11,15 @@ import example.taskmanager.task.SubTask;
 
 public class InMemoryTaskManager implements TaskManager {
 
-    private final Integer MAX_HISTORY = 10;
     private final HashMap<Integer, Epic> epics = new HashMap<>();
     private final HashMap<Integer, Task> tasks = new HashMap<>();
     private final HashMap<Integer, SubTask> subTasks = new HashMap<>();
-
-    private List<Task> historyList = new ArrayList<>();
     int uniqueID = 0;
+    private HistoryManager historyManager;
+
+    public void setHistoryManager(HistoryManager historyManager) {
+        this.historyManager = historyManager;
+    }
 
     @Override
     public Collection<Task> listAllTasks() {
@@ -45,7 +46,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     public Task getTask(int id) throws Exception {
         if (tasks.containsKey(id)) {
-            addToHistory(id, tasks.get(id));
+            historyManager.add(tasks.get(id));
             return tasks.get(id);
         }
         throw new Exception("Missing ID.");
@@ -54,7 +55,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public Epic getEpic(int id) throws Exception {
         if (epics.containsKey(id))  {
-            addToHistory(id, epics.get(id));
+            historyManager.add(epics.get(id));
             return epics.get(id);
         }
         throw new Exception("Missing ID.");
@@ -63,13 +64,12 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public SubTask getSubTask(int id) throws Exception {
         if (subTasks.containsKey(id))   {
-            addToHistory(id, subTasks.get(id));
+            historyManager.add(subTasks.get(id));
             return subTasks.get(id);
         }
         throw new Exception("Missing ID.");
     }
 
-    // Add all type tasks.
     @Override
     public void addTask(Task task)	{
         task.setTaskID(getUniqueID());
@@ -100,7 +100,6 @@ public class InMemoryTaskManager implements TaskManager {
         epics.get(epic.getTaskID()).addSubTask(subTask.getTaskID());
     }
 
-// Update all type tasks.
     @Override
     public void updateTask(Task task) {
         tasks.put(task.getTaskID(), task);
@@ -159,9 +158,7 @@ public class InMemoryTaskManager implements TaskManager {
             epics.remove(id);
         }
         else if (subTasks.containsKey(id))	{
-            // Удаление id из массива подзадач эпика.
             epics.get(subTasks.get(id).getTaskID()).removeSubTask(id);
-            // Удаление самой подзадачи.
             subTasks.remove(id);
         }
     }
@@ -184,17 +181,6 @@ public class InMemoryTaskManager implements TaskManager {
         return subTasksByEpic;
     }
 
-    @Override
-    public List<Task> getHistory() {
-        return historyList;
-    }
-
-    private void addToHistory(Integer id, Task task) {
-        if(historyList.size() == MAX_HISTORY) {
-            historyList.remove(0);
-        }
-        historyList.add(task);
-    }
     private int getUniqueID()	{
         return uniqueID++;
     }

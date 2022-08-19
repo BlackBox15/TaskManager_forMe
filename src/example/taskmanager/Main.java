@@ -1,8 +1,8 @@
 package example.taskmanager;
 
-import example.taskmanager.manager.InMemoryTaskManager;
 import example.taskmanager.manager.Managers;
 import example.taskmanager.manager.TaskManager;
+import example.taskmanager.manager.HistoryManager;
 import example.taskmanager.task.Epic;
 import example.taskmanager.task.SubTask;
 import example.taskmanager.task.Task;
@@ -12,8 +12,10 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        InMemoryTaskManager manager = new InMemoryTaskManager();
-        TaskManager manager2 = Managers.getDefault();
+        TaskManager manager1 = Managers.getDefault();
+        HistoryManager historyManager = Managers.getDefaultHistory();
+
+        manager1.setHistoryManager(historyManager);
 
         // Creating new objects.
         Task task1 = new Task("task1_name", "something about task1");
@@ -25,18 +27,18 @@ public class Main {
         SubTask sub2_1 = new SubTask("sub3_name", "sub3_descr");
 
         // Adding a new objects with manager (attaching IDs).
-        manager2.addTask(task1);
-        manager2.addTask(task2);
-        manager2.addTask(epic1);
-        manager2.addTask(epic2);
-        manager2.addTask(sub1_1, epic1);
-        manager2.addTask(sub1_2, epic1);
-        manager2.addTask(sub2_1, epic2);
+        manager1.addTask(task1);
+        manager1.addTask(task2);
+        manager1.addTask(epic1);
+        manager1.addTask(epic2);
+        manager1.addTask(sub1_1, epic1);
+        manager1.addTask(sub1_2, epic1);
+        manager1.addTask(sub2_1, epic2);
 
         // Test output (using customizable toString()).
-        System.out.println(manager2.listAllTasks());
-        System.out.println(manager2.listAllEpics());
-        System.out.println(manager2.listAllSubTasks());
+        System.out.println(manager1.listAllTasks());
+        System.out.println(manager1.listAllEpics());
+        System.out.println(manager1.listAllSubTasks());
 
         // Objects in work...
         sub1_1.setStatus(Status.IN_PROGRESS);
@@ -44,33 +46,37 @@ public class Main {
         sub2_1.setStatus(Status.DONE);
 
         // Update objects with manager.
-        manager2.updateSubTask(sub1_1);
-        manager2.updateSubTask(sub1_2);
-        manager2.updateSubTask(sub2_1);
+        manager1.updateSubTask(sub1_1);
+        manager1.updateSubTask(sub1_2);
+        manager1.updateSubTask(sub2_1);
 
         // Test output after changing.
         System.out.println("------------after update------------");
-        System.out.println(manager2.listAllTasks());
-        System.out.println(manager2.listAllEpics());
-        System.out.println(manager2.listAllSubTasks());
+        System.out.println(manager1.listAllTasks());
+        System.out.println(manager1.listAllEpics());
+        System.out.println(manager1.listAllSubTasks());
 
         System.out.println("----tests for getHistory()------");
-        manager2.getEpic(3);
-        manager2.getTask(0);
-        manager2.getEpic(2);
-        manager2.getTask(1);
-        manager2.getTask(0);
-        manager2.getEpic(2);
-        manager2.getTask(1);
-        manager2.getTask(0);
-        manager2.getEpic(2);
-        manager2.getTask(1);
-        manager2.getTask(0);
-        manager2.getEpic(2);
-        manager2.getTask(1);
-        manager2.getTask(0);
-        manager2.getEpic(2);
-        manager2.getTask(1);
-        System.out.println(manager2.getHistory());
+        // Simulate getting some tasks.
+        manager1.getEpic(3);
+        manager1.getTask(0);
+        manager1.getEpic(2);
+        manager1.getTask(1);
+        manager1.getTask(0);
+        manager1.getEpic(2);
+        // ---------- 10 changes to history below
+        // ---------- check it by ID
+        manager1.getTask(1);
+        manager1.getTask(0);
+        manager1.getEpic(2);
+        manager1.getTask(1);
+        manager1.getTask(0);
+        manager1.getEpic(2);
+        manager1.getTask(1);
+        manager1.getTask(0);
+        manager1.getEpic(2);
+        manager1.getTask(1);
+
+        System.out.println(historyManager.getHistory());
     }
 }

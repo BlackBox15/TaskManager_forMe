@@ -4,44 +4,44 @@ import example.taskmanager.task.Epic;
 import example.taskmanager.task.SubTask;
 import example.taskmanager.task.Task;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 public interface TaskManager {
-     Collection<Task> listAllTasks();
 
-     Collection<Epic> listAllEpics();
+    Collection<Task> listAllTasks();
 
-     Collection<SubTask> listAllSubTasks();
+    Collection<Epic> listAllEpics();
 
-     void removeAll();
+    Collection<SubTask> listAllSubTasks();
 
-     Task getTask(int id) throws Exception;
+    Collection<SubTask> listSubTasksByEpic(Epic epic);
 
-     Epic getEpic(int id) throws Exception;
+    void removeAll();
 
-     SubTask getSubTask(int id) throws Exception;
+    Task getTask(int id) throws Exception;
+
+    Epic getEpic(int id) throws Exception;
+
+    SubTask getSubTask(int id) throws Exception;
 
     // Add all type tasks.
-     void addTask(Task task);
+    void addTask(Task task);
 
-     void addTask(Epic epic);
+    void addTask(Epic epic);
 
-     void addTask(SubTask subTask, Epic epic);
+    void addTask(SubTask subTask, Epic epic);
 
-     void addTask(SubTask subTask);
+    void addTask(SubTask subTask);
 
     // Update all type tasks.
-     void updateTask(Task task);
+    void updateTask(Task task);
 
-     void updateEpic(Epic epic);
+    void updateEpic(Epic epic);
 
-     void updateSubTask(SubTask subTask);
+    void updateSubTask(SubTask subTask);
 
-     void removeById(int id);
+    void removeById(int id);
 
-     ArrayList<SubTask> listSubTasksByEpic(Epic epic);
+    void setHistoryManager(HistoryManager historyManager);
 
-     List<Task> getHistory();
 }
