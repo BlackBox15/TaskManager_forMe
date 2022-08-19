@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-interface TaskManager {
+public interface TaskManager {
      Collection<Task> listAllTasks();
 
      Collection<Epic> listAllEpics();
