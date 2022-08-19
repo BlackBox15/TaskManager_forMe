@@ -51,9 +51,23 @@ public class Main {
         System.out.println(manager.listAllEpics());
         System.out.println(manager.listAllSubTasks());
 
-        // Another test.
-        System.out.println("------------another test with missing ID------------");
-        System.out.println(manager.getTask(32353453));
-        System.out.println(manager.getEpic(4234234));
+        System.out.println("----getHistory()------");
+        manager.getEpic(3);
+        manager.getTask(0);
+        manager.getEpic(2);
+        manager.getTask(1);
+        manager.getTask(0);
+        manager.getEpic(2);
+        manager.getTask(1);
+        manager.getTask(0);
+        manager.getEpic(2);
+        manager.getTask(1);
+        manager.getTask(0);
+        manager.getEpic(2);
+        manager.getTask(1);
+        manager.getTask(0);
+        manager.getEpic(2);
+        manager.getTask(1);
+        System.out.println(manager.getHistory());
     }
 }

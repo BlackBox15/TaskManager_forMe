@@ -6,8 +6,9 @@ import example.taskmanager.task.Task;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
- interface TaskManager {
+interface TaskManager {
      Collection<Task> listAllTasks();
 
      Collection<Epic> listAllEpics();
@@ -42,5 +43,5 @@ import java.util.Collection;
 
      ArrayList<SubTask> listSubTasksByEpic(Epic epic);
 
-     void getHistory();
+     List<Task> getHistory();
 }
