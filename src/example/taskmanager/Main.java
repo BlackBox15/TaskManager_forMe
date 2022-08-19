@@ -72,10 +72,27 @@ public class Main {
         manager1.getTask(1);
         manager1.getTask(0);
         manager1.getEpic(2);
+        manager1.getEpic(2);
+        //
         manager1.getTask(1);
         manager1.getTask(0);
+        manager1.getSubTask(5);
+        manager1.getEpic(2);
+        manager1.getSubTask(4);
+        manager1.getTask(1);
+        manager1.getTask(1);
+        //
+        manager1.getSubTask(5);
+        manager1.getSubTask(5);
+        manager1.getTask(0);
+        manager1.getSubTask(6);
+        manager1.getEpic(2);
+        manager1.getTask(0);
+        manager1.getSubTask(4);
         manager1.getEpic(2);
         manager1.getTask(1);
+        manager1.getSubTask(6);
+
 
         System.out.println(historyManager.getHistory());
     }
