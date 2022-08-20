@@ -5,7 +5,7 @@ public class Task {
     private Status status;
     private String nameTask;
     private String descriptionTask;
-    private int taskID;
+    private int taskId;
 
     public Task(String nameTask, String descriptionTask) {
         this.status = Status.NEW;
@@ -21,8 +21,8 @@ public class Task {
         this.descriptionTask = descriptionTask;
     }
 
-    public void setTaskID(int taskID) {
-        this.taskID = taskID;
+    public void setTaskId(int taskId) {
+        this.taskId = taskId;
     }
 
     public void setStatus(Status status) {
@@ -31,7 +31,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Task{" + "nameTask=" + nameTask + ", descriptionTask=" + descriptionTask + ", taskID=" + taskID + ", status=" + status + '}';
+        return "Task{" + "nameTask=" + nameTask + ", descriptionTask=" + descriptionTask + ", taskID=" + taskId + ", status=" + status + '}';
     }
 
     public String getNameTask() {
@@ -42,8 +42,8 @@ public class Task {
         return descriptionTask;
     }
 
-    public int getTaskID() {
-        return taskID;
+    public int getTaskId() {
+        return taskId;
     }
 
     public Status getStatus() {
