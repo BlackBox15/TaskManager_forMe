@@ -1,8 +1,6 @@
 package example.taskmanager.manager;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
+import java.util.*;
 
 import example.taskmanager.task.Status;
 import example.taskmanager.task.Task;
@@ -11,10 +9,10 @@ import example.taskmanager.task.SubTask;
 
 public class InMemoryTaskManager implements TaskManager {
 
-    private final HashMap<Integer, Epic> epics = new HashMap<>();
-    private final HashMap<Integer, Task> tasks = new HashMap<>();
-    private final HashMap<Integer, SubTask> subTasks = new HashMap<>();
-    int uniqueID = 0;
+    private final Map<Integer, Epic> epics = new HashMap<>();
+    private final Map<Integer, Task> tasks = new HashMap<>();
+    private final Map<Integer, SubTask> subTasks = new HashMap<>();
+    private int uniqueID = 0;
     private HistoryManager historyManager;
 
     public void setHistoryManager(HistoryManager historyManager) {
@@ -114,7 +112,7 @@ public class InMemoryTaskManager implements TaskManager {
     public void updateSubTask(SubTask subTask) {
 
         int epicID = subTask.getEpicID();
-        ArrayList<Integer> subTasksID;
+        List<Integer> subTaskId;
         boolean allSubTasksDone = false;
 
         subTasks.put(subTask.getTaskID(), subTask);
@@ -125,10 +123,10 @@ public class InMemoryTaskManager implements TaskManager {
         else if (subTask.getStatus() == Status.DONE)   {
             allSubTasksDone = true;
 
-            subTasksID = epics.get(epicID).getSubTasksID();
+            subTaskId = epics.get(epicID).getSubTaskId();
 
             for (Integer key :
-                    subTasksID) {
+                    subTaskId) {
                 allSubTasksDone &= (subTasks.get(key).getStatus() == Status.DONE);
             }
 
@@ -149,7 +147,7 @@ public class InMemoryTaskManager implements TaskManager {
         }
         else if (epics.containsKey(id))	{
             // Removing all subtasks in this epic.
-            ArrayList<Integer> subTasksIdToRemove = epics.get(id).getSubTasksID();
+            List<Integer> subTasksIdToRemove = epics.get(id).getSubTaskId();
             for (Integer key :
                     subTasksIdToRemove) {
                 subTasks.remove(key);

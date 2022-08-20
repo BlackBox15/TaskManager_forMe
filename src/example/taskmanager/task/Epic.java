@@ -1,25 +1,26 @@
 package example.taskmanager.task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Epic extends Task{
 
-    private ArrayList<Integer> subTasksID = new ArrayList<>();
+    private List<Integer> subTaskId = new ArrayList<>();
 
     public Epic(String nameTask, String descriptionTask) {
         super(nameTask, descriptionTask);
     }
 
-    public ArrayList<Integer> getSubTasksID()   {
-        return subTasksID;
+    public List<Integer> getSubTaskId()   {
+        return subTaskId;
     }
 
     public void addSubTask(int id) {
-        subTasksID.add(id);
+        subTaskId.add(id);
     }
 
     public void removeSubTask(int id)    {
-        subTasksID.remove(id);
+        subTaskId.remove(id);
     }
 
     @Override
