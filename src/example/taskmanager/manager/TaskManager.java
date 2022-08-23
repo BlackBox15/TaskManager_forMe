@@ -5,16 +5,17 @@ import example.taskmanager.task.SubTask;
 import example.taskmanager.task.Task;
 
 import java.util.Collection;
+import java.util.List;
 
 public interface TaskManager {
 
-    Collection<Task> listAllTasks();
+    List<Task> listAllTasks();
 
-    Collection<Epic> listAllEpics();
+    List<Epic> listAllEpics();
 
-    Collection<SubTask> listAllSubTasks();
+    List<SubTask> listAllSubTasks();
 
-    Collection<SubTask> listSubTasksByEpic(Epic epic);
+    List<SubTask> listSubTasksByEpic(Epic epic);
 
     void removeAll();
 
