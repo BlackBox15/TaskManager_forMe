@@ -2,7 +2,8 @@ package example.taskmanager.task;
 
 public class SubTask extends Task {
 
-    private int epicID;     // Parent Epic ID.
+    // Parent Epic ID.
+    private int epicID;
 
     public SubTask(String nameTask, String descriptionTask, int epicID) {
         super(nameTask, descriptionTask);

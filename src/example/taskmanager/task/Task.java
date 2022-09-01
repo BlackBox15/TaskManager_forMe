@@ -31,7 +31,9 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Task{" + "nameTask=" + nameTask + ", descriptionTask=" + descriptionTask + ", taskID=" + taskID + ", status=" + status + '}';
+        return "Task{" + "nameTask=" + nameTask +
+                ", descriptionTask=" + descriptionTask +
+                ", taskID=" + taskID + ", status=" + status + '}';
     }
 
     public String getNameTask() {
