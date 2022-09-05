@@ -1,7 +1,6 @@
 package example.taskmanager.manager;
 
 import example.taskmanager.task.Task;
-
 import java.util.List;
 
 public interface HistoryManager {
@@ -10,4 +9,5 @@ public interface HistoryManager {
 
     List<Task> getHistory();
 
+    void remove(int id);
 }
