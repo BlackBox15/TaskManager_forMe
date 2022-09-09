@@ -6,9 +6,10 @@ import java.util.*;
 
 public class InMemoryHistoryManager implements HistoryManager{
 
+
     private final Integer MAX_HISTORY = 10;
     private final List<Task> historyList = new ArrayList<>();
-    private Map<Task, Node> historyMap = new HashMap<>();
+    private Map<Integer, Node<Task>> historyMap = new HashMap<>();
     private List<Task> taskList = new LinkedList<>();
     private Node<Task> head;
     // Указатель на последний элемент списка. Он же last

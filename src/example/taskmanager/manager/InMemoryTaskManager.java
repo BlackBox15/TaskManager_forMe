@@ -147,6 +147,7 @@ public class InMemoryTaskManager implements TaskManager {
 
         if (tasks.containsKey(id))	{
             tasks.remove(id);
+            //todo: add implementation of remove( )from HistoryManager.
         }
         else if (epics.containsKey(id))	{
             // Removing all subtasks in this epic.
@@ -154,13 +155,16 @@ public class InMemoryTaskManager implements TaskManager {
             for (Integer key :
                     subTasksIdToRemove) {
                 subTasks.remove(key);
+                //todo: add implementation of remove( )from HistoryManager.
             }
             // Removing epic.
             epics.remove(id);
+            //todo: add implementation of remove( )from HistoryManager.
         }
         else if (subTasks.containsKey(id))	{
             epics.get(subTasks.get(id).getTaskID()).removeSubTask(id);
             subTasks.remove(id);
+            //todo: add implementation of remove( )from HistoryManager.
         }
     }
 
