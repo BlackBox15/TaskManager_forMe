@@ -21,25 +21,51 @@ public class InMemoryHistoryManager implements HistoryManager{
         Node<Task> newNode;
         Node<Task> oldTail = tail;
 
+        if (size >= MAX_HISTORY)    {
+            removeNode(head);
+        }
+
         newNode = new Node<>(oldTail, task, null);
         tail = newNode;
-        oldTail.next = newNode;
+
+        if (oldTail == null)
+            head = newNode;
+        else
+            oldTail.next = newNode;
         size++;
+
         return newNode;
     }
 
-    private void removeNode(Node node)  {
-        taskList.remove(node);
+    private void removeNode(Node<Task> node)  {
+        Node<Task> oldPrev = node.prev;       // Previous Node before removing.
+        Node<Task> oldNext = node.next;       // Next Node before removing.
+
+        // Removing a HEAD of the LinkedList.
+        if (node.prev == null) {
+            node.next.prev = null;
+            head = node.next;
+        }
+        // Removing a TAIL of the LinkedList.
+        else if (node.next == null) {
+            node.prev.next = null;
+        }
+        else {
+            node.next.prev = oldPrev;
+            node.prev.next = oldNext;
+        }
+        size--;
     }
 
     private ArrayList<Task> getTasks() {
+
         ArrayList<Task> arrayList = new ArrayList<>();
+        Node<Task> currentNode = head;
 
-        for (Task task :
-                taskList) {
-            arrayList.add(task);
+        while (currentNode != null) {
+            arrayList.add(currentNode.data);
+            currentNode = currentNode.next;
         }
-
         return arrayList;
     }
 
@@ -52,6 +78,8 @@ public class InMemoryHistoryManager implements HistoryManager{
 
     @Override
     public void add(Task task) {
+        // If we already have the instance of task we should remove it from history list, and then add it as last member.
+        // If we have not this task in our historyMap, we just put it in.
         if (historyMap.containsKey(task.getTaskID())) {
             removeNode(historyMap.get(task.getTaskID()));
         }
