@@ -59,7 +59,13 @@ public class Main {
         manager1.updateTask(task1);
 
         // Get history.
-        System.out.println("------------ Get history:");
+        System.out.println("------------ Get history1:");
+        System.out.println(historyManager.getHistory());
+
+        manager1.removeById(epic1.getTaskID());
+
+        // Get history.
+        System.out.println("------------ Get history2:");
         System.out.println(historyManager.getHistory());
 
 

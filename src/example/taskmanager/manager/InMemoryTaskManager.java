@@ -154,24 +154,22 @@ public class InMemoryTaskManager implements TaskManager {
 
         if (tasks.containsKey(id))	{
             tasks.remove(id);
-            //todo: add implementation of remove( )from HistoryManager.
+            historyManager.remove(id);
         }
         else if (epics.containsKey(id))	{
-            // Removing all subtasks in this epic.
             ArrayList<Integer> subTasksIdToRemove = epics.get(id).getSubTasksID();
             for (Integer key :
                     subTasksIdToRemove) {
                 subTasks.remove(key);
-                //todo: add implementation of remove( )from HistoryManager.
+                historyManager.remove(key);
             }
-            // Removing epic.
             epics.remove(id);
-            //todo: add implementation of remove( )from HistoryManager.
+            historyManager.remove(id);
         }
         else if (subTasks.containsKey(id))	{
             epics.get(subTasks.get(id).getTaskID()).removeSubTask(id);
             subTasks.remove(id);
-            //todo: add implementation of remove( )from HistoryManager.
+            historyManager.remove(id);
         }
     }
 
