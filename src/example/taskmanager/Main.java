@@ -59,7 +59,7 @@ public class Main {
         manager1.updateTask(task1);
 
         // Get history.
-        System.out.println("Get history:");
+        System.out.println("------------ Get history:");
         System.out.println(historyManager.getHistory());
 
 
