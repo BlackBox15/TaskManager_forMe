@@ -1,6 +1,5 @@
 package example.taskmanager.manager;
 
-import example.taskmanager.task.Epic;
 import example.taskmanager.task.Task;
 
 import java.util.*;
@@ -68,7 +67,6 @@ public class InMemoryHistoryManager implements HistoryManager{
 
     @Override
     public void remove(int id) {
-        Task taskToRemove = historyMap.get(id).data;
 
         if (historyMap.containsKey(id)) {
             removeNode(historyMap.remove(id));
@@ -78,8 +76,6 @@ public class InMemoryHistoryManager implements HistoryManager{
 
     @Override
     public void add(Task task) {
-        // If we already have the instance of task we should remove it from history list, and then add it as last member.
-        // If we have not this task in our historyMap, we just put it in.
         if (historyMap.containsKey(task.getTaskID())) {
             removeNode(historyMap.get(task.getTaskID()));
             historyMap.remove(task.getTaskID());
