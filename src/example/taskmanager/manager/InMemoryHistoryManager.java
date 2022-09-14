@@ -6,22 +6,18 @@ import java.util.*;
 
 public class InMemoryHistoryManager implements HistoryManager{
 
-
-    private final Integer MAX_HISTORY = 10;
-    private final List<Task> historyList = new ArrayList<>();
+    private static final Integer MAX_HISTORY = 10;
     private Map<Integer, Node<Task>> historyMap = new HashMap<>();
-    private List<Task> taskList = new LinkedList<>();
     private Node<Task> head;
-    // Указатель на последний элемент списка. Он же last
     private Node<Task> tail;
     private int size = 0;
-
 
     private Node<Task> linkLast(Task task) {
         Node<Task> newNode;
         Node<Task> oldTail = tail;
 
         if (size >= MAX_HISTORY)    {
+            historyMap.remove(head.data.getTaskID());
             removeNode(head);
         }
 
@@ -41,12 +37,12 @@ public class InMemoryHistoryManager implements HistoryManager{
         Node<Task> oldPrev = node.prev;       // Previous Node before removing.
         Node<Task> oldNext = node.next;       // Next Node before removing.
 
-        // Removing a HEAD of the LinkedList.
+        // Removing node if it's a HEAD of the LinkedList.
         if (node.prev == null) {
             node.next.prev = null;
             head = node.next;
         }
-        // Removing a TAIL of the LinkedList.
+        // Removing node if it's a TAIL of the LinkedList.
         else if (node.next == null) {
             node.prev.next = null;
         }
@@ -73,6 +69,7 @@ public class InMemoryHistoryManager implements HistoryManager{
     public void remove(int id) {
         if (historyMap.containsKey(id)) {
             removeNode(historyMap.remove(id));
+            historyMap.remove(id);
         }
     }
 
@@ -82,6 +79,7 @@ public class InMemoryHistoryManager implements HistoryManager{
         // If we have not this task in our historyMap, we just put it in.
         if (historyMap.containsKey(task.getTaskID())) {
             removeNode(historyMap.get(task.getTaskID()));
+            historyMap.remove(task.getTaskID());
         }
         historyMap.put(task.getTaskID(), linkLast(task));
     }
