@@ -17,7 +17,7 @@ public class InMemoryHistoryManager implements HistoryManager{
         Node<Task> oldTail = tail;
 
         if (size >= MAX_HISTORY)    {
-            historyMap.remove(head.getData().getTaskID());
+            historyMap.remove(head.getData().getTaskId());
             removeNode(head);
         }
 
@@ -76,11 +76,11 @@ public class InMemoryHistoryManager implements HistoryManager{
 
     @Override
     public void add(Task task) {
-        if (historyMap.containsKey(task.getTaskID())) {
-            removeNode(historyMap.get(task.getTaskID()));
-            historyMap.remove(task.getTaskID());
+        if (historyMap.containsKey(task.getTaskId())) {
+            removeNode(historyMap.get(task.getTaskId()));
+            historyMap.remove(task.getTaskId());
         }
-        historyMap.put(task.getTaskID(), linkLast(task));
+        historyMap.put(task.getTaskId(), linkLast(task));
     }
 
     @Override

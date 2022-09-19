@@ -22,17 +22,17 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public List<Task> listAllTasks() {
-        return new ArrayList<Task>(tasks.values());
+        return new ArrayList<>(tasks.values());
     }
 
     @Override
     public List<Epic> listAllEpics() {
-        return new ArrayList<Epic>(epics.values());
+        return new ArrayList<>(epics.values());
     }
 
     @Override
     public List<SubTask> listAllSubTasks() {
-        return new ArrayList<SubTask>(subTasks.values());
+        return new ArrayList<>(subTasks.values());
     }
 
     @Override
@@ -72,14 +72,14 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void addTask(Task task) {
         task.setTaskID(getUniqueId());
-        tasks.put(task.getTaskID(), task);
+        tasks.put(task.getTaskId(), task);
         historyManager.add(task);
     }
 
     @Override
     public void addTask(Epic epic) {
         epic.setTaskID(getUniqueId());
-        epics.put(epic.getTaskID(), epic);
+        epics.put(epic.getTaskId(), epic);
         historyManager.add(epic);
 }
 
@@ -89,29 +89,29 @@ public class InMemoryTaskManager implements TaskManager {
 
         subTask.setTaskID(getUniqueId());
 
-        subTasks.put(subTask.getTaskID(), subTask);
-        epics.get(epicID).addSubTask(subTask.getTaskID());
+        subTasks.put(subTask.getTaskId(), subTask);
+        epics.get(epicID).addSubTask(subTask.getTaskId());
         historyManager.add(subTask);
     }
 
     @Override
     public void addTask(SubTask subTask, Epic epic) {
         subTask.setTaskID(getUniqueId());
-        subTask.setEpicId(epic.getTaskID());
-        subTasks.put(subTask.getTaskID(), subTask);
-        epics.get(epic.getTaskID()).addSubTask(subTask.getTaskID());
+        subTask.setEpicId(epic.getTaskId());
+        subTasks.put(subTask.getTaskId(), subTask);
+        epics.get(epic.getTaskId()).addSubTask(subTask.getTaskId());
         historyManager.add(subTask);
     }
 
     @Override
     public void updateTask(Task task) {
-        tasks.put(task.getTaskID(), task);
+        tasks.put(task.getTaskId(), task);
         historyManager.add(task);
     }
 
     @Override
     public void updateEpic(Epic epic) {
-        epics.put(epic.getTaskID(), epic);
+        epics.put(epic.getTaskId(), epic);
         historyManager.add(epic);
     }
 
@@ -120,9 +120,9 @@ public class InMemoryTaskManager implements TaskManager {
 
         int epicId = subTask.getEpicId();
         List<Integer> subTasksId;
-        boolean allSubTasksDone = false;
+        boolean allSubTasksDone;
 
-        subTasks.put(subTask.getTaskID(), subTask);
+        subTasks.put(subTask.getTaskId(), subTask);
 
         if (subTask.getStatus() == Status.IN_PROGRESS)   {
             epics.get(epicId).setStatus(Status.IN_PROGRESS);
@@ -165,26 +165,27 @@ public class InMemoryTaskManager implements TaskManager {
             historyManager.remove(id);
         }
         else if (subTasks.containsKey(id))	{
-            epics.get(subTasks.get(id).getTaskID()).removeSubTask(id);
+            epics.get(subTasks.get(id).getTaskId()).removeSubTask(id);
             subTasks.remove(id);
             historyManager.remove(id);
         }
     }
 
     @Override
-    public ArrayList<SubTask> listSubTasksByEpic(Epic epic)   {
-        int epicID = epic.getTaskID();
-        ArrayList<SubTask> subTasksByEpic = new ArrayList<>();
+    public List<SubTask> listSubTasksByEpic(Epic epic)   {
+        int epicId = epic.getTaskId();
+        List<SubTask> subTasksByEpic = new ArrayList<>();
 
-        if (epics.containsKey(epicID))  {
-            subTasksByEpic = (ArrayList<SubTask>) subTasks.values();
+        if (epics.containsKey(epicId))  {
+            subTasksByEpic.addAll(subTasks.values());
 
             for (SubTask subtask :
                     subTasksByEpic) {
-                if (subtask.getEpicId() != epicID)  {
+                if (subtask.getEpicId() != epicId)  {
                     subTasksByEpic.remove(subtask);
                 }
             }
+
         }
         return subTasksByEpic;
     }
