@@ -19,13 +19,14 @@ public class FilesBackedTasksManager extends InMemoryTaskManager implements Task
 
     public void save() {
         // Save this manager's state to the file.
-        // todo: make this method.
         // Write data in CSV-format.
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("history.csv"))) {
             StringBuilder sb = new StringBuilder();
 
             sb.append("id,type,name,status,description,epic\n");
+            // todo: make a tasks to create a StringBuilder with all necessary data.
 
+            bw.write(sb.toString());
         }
         catch (IOException e)   {
             System.out.println("IOException is here!");
