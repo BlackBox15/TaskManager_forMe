@@ -4,6 +4,9 @@ import example.taskmanager.task.Epic;
 import example.taskmanager.task.SubTask;
 import example.taskmanager.task.Task;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
@@ -16,6 +19,18 @@ public class FilesBackedTasksManager extends InMemoryTaskManager implements Task
 
     public void save() {
         // Save this manager's state to the file.
+        // todo: make this method.
+        // Write data in CSV-format.
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("history.csv"))) {
+            StringBuilder sb = new StringBuilder();
+
+            sb.append("id,type,name,status,description,epic\n");
+
+        }
+        catch (IOException e)   {
+            System.out.println("IOException is here!");
+        }
+
     }
 
     @Override
