@@ -7,37 +7,60 @@ import example.taskmanager.task.Task;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
-public class FilesBackedTasksManager extends InMemoryTaskManager implements TaskManager{
+public class FilesBackedTasksManager extends InMemoryTaskManager implements TaskManager {
+
+    private StringBuilder sb = new StringBuilder();
     private final String filename;
 
     public FilesBackedTasksManager(String filename) {
         this.filename = filename;
+        sb.append("id,type,name,status,description,epic\n");
     }
 
-    public void save() {
-        // Save this manager's state to the file.
-        // Write data in CSV-format.
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("history.csv"))) {
-            StringBuilder sb = new StringBuilder();
+    private void save() {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename))) {
 
-            sb.append("id,type,name,status,description,epic\n");
-            // todo: make a tasks to create a StringBuilder with all necessary data.
+            List<Task> sortedByIdList = getHistoryManager().getHistory();
+            Collections.sort(sortedByIdList);
 
+            for (Task t :
+                    sortedByIdList) {
+
+                List<String> specOfTask = new ArrayList<>();
+
+                specOfTask.add(Integer.toString(t.getTaskId()));
+
+                if (t instanceof Epic) {
+                    sb.append(",EPIC,");
+                    specOfTask.add("EPIC");
+                } else if (t instanceof SubTask)   {
+                    specOfTask.add("SUBTASK");
+                } else   {
+                    specOfTask.add("TASK");
+                }
+
+                specOfTask.add(t.getNameTask());
+                specOfTask.add(t.getStatus().toString());
+                specOfTask.add(t.getDescriptionTask());
+
+                sb.append(String.join(",", specOfTask));
+                sb.append("\n");
+
+                // todo: put "epic"  field logic here
+
+            }
             bw.write(sb.toString());
         }
         catch (IOException e)   {
             System.out.println("IOException is here!");
         }
-
     }
 
     @Override
     public void setHistoryManager(HistoryManager historyManager) {
         super.setHistoryManager(historyManager);
-        save();
     }
 
     @Override
@@ -93,4 +116,5 @@ public class FilesBackedTasksManager extends InMemoryTaskManager implements Task
         super.removeById(id);
         save();
     }
+
 }

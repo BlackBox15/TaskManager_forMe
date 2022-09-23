@@ -1,6 +1,6 @@
 package example.taskmanager.task;
 
-public class Task {
+public class Task implements Comparable<Task> {
 
     private Status status;
     private String nameTask;
@@ -52,4 +52,8 @@ public class Task {
         return this.status;
     }
 
+    @Override
+    public int compareTo(Task taskToCompare) {
+        return this.getTaskId() - taskToCompare.getTaskId();
+    }
 }

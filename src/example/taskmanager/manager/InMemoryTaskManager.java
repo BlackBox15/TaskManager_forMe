@@ -60,6 +60,10 @@ public class InMemoryTaskManager implements TaskManager {
         throw new Exception("Missing ID.");
     }
 
+    public HistoryManager getHistoryManager() {
+        return historyManager;
+    }
+
     @Override
     public SubTask getSubTask(int id) throws Exception {
         if (subTasks.containsKey(id))   {
