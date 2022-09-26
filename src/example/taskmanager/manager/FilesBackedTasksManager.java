@@ -11,15 +11,17 @@ import java.util.*;
 
 public class FilesBackedTasksManager extends InMemoryTaskManager implements TaskManager {
 
-    private StringBuilder sb = new StringBuilder();
     private final String filename;
 
     public FilesBackedTasksManager(String filename) {
         this.filename = filename;
-        sb.append("id,type,name,status,description,epic\n");
     }
 
     private void save() {
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("id,type,name,status,description,epic\n");
+        
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename))) {
 
             List<Task> sortedByIdList = getHistoryManager().getHistory();
