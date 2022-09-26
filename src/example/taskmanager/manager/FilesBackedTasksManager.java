@@ -35,7 +35,6 @@ public class FilesBackedTasksManager extends InMemoryTaskManager implements Task
                 specOfTask.add(Integer.toString(t.getTaskId()));
 
                 if (t instanceof Epic) {
-                    sb.append(",EPIC,");
                     specOfTask.add("EPIC");
                 } else if (t instanceof SubTask)   {
                     specOfTask.add("SUBTASK");

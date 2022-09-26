@@ -4,4 +4,8 @@ id,type,name,status,description,epic
 5,TASK,task6,NEW,task6_description
 6,TASK,task7,NEW,task7_description
 7,TASK,task8,NEW,task8_description
-,EPIC,9,EPIC,epic2,DONE,epic2_description
+8,EPIC,epic1,IN_PROGRESS,epic1_description
+9,EPIC,epic2,DONE,epic2_description
+10,SUBTASK,sub1_1,IN_PROGRESS,sub1_1_description
+11,SUBTASK,sub1_2,DONE,sub1_2_description
+12,SUBTASK,sub1_3,NEW,sub1_3_description
