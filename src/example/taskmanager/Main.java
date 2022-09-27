@@ -63,11 +63,11 @@ public class Main {
         System.out.println("------------ Get history1:");
         System.out.println(historyManager.getHistory());
 
-//        manager2.removeById(epic1.getTaskId());
+        manager2.removeById(epic1.getTaskId());
 
-        // Get history.
-//        System.out.println("------------ Get history2:");
-//        System.out.println(historyManager.getHistory());
+//         Get history.
+        System.out.println("------------ Get history2:");
+        System.out.println(historyManager.getHistory());
 
     }
 }

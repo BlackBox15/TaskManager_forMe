@@ -25,6 +25,13 @@ public class FilesBackedTasksManager extends InMemoryTaskManager implements Task
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename))) {
 
             List<Task> sortedByIdList = getHistoryManager().getHistory();
+            StringBuilder histItems2 = new StringBuilder();
+
+            for (Task t :
+                    sortedByIdList) {
+                histItems2.append(t.getTaskId());
+            }
+
             Collections.sort(sortedByIdList);
 
             for (Task t :
@@ -47,11 +54,10 @@ public class FilesBackedTasksManager extends InMemoryTaskManager implements Task
                 specOfTask.add(t.getDescriptionTask());
 
                 sb.append(String.join(",", specOfTask));
-                sb.append("\n");
-
+                sb.append("\n\n");
                 // todo: put "epic"  field logic here
-
             }
+//            sb.append(String.join(",", ));
             bw.write(sb.toString());
         }
         catch (IOException e)   {
