@@ -20,22 +20,23 @@ public class FilesBackedTasksManager extends InMemoryTaskManager implements Task
     private void save() {
 
         StringBuilder sb = new StringBuilder();
+
         sb.append("id,type,name,status,description,epic\n");
-        
+
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename))) {
 
-            List<Task> sortedByIdList = getHistoryManager().getHistory();
-            StringBuilder histItems2 = new StringBuilder();
+            List<Task> sortedListById = getHistoryManager().getHistory();
+            List<String> idsList = new ArrayList<>();
 
             for (Task t :
-                    sortedByIdList) {
-                histItems2.append(t.getTaskId());
+                    sortedListById) {
+                idsList.add(Integer.toString(t.getTaskId()));
             }
 
-            Collections.sort(sortedByIdList);
+            Collections.sort(sortedListById);
 
             for (Task t :
-                    sortedByIdList) {
+                    sortedListById) {
 
                 List<String> specOfTask = new ArrayList<>();
 
@@ -43,9 +44,9 @@ public class FilesBackedTasksManager extends InMemoryTaskManager implements Task
 
                 if (t instanceof Epic) {
                     specOfTask.add("EPIC");
-                } else if (t instanceof SubTask)   {
+                } else if (t instanceof SubTask) {
                     specOfTask.add("SUBTASK");
-                } else   {
+                } else {
                     specOfTask.add("TASK");
                 }
 
@@ -54,13 +55,15 @@ public class FilesBackedTasksManager extends InMemoryTaskManager implements Task
                 specOfTask.add(t.getDescriptionTask());
 
                 sb.append(String.join(",", specOfTask));
-                sb.append("\n\n");
+                sb.append("\n");
                 // todo: put "epic"  field logic here
             }
-//            sb.append(String.join(",", ));
+
+            sb.append("\n");
+            sb.append(String.join(",", idsList));
+
             bw.write(sb.toString());
-        }
-        catch (IOException e)   {
+        } catch (IOException e) {
             System.out.println("IOException is here!");
         }
     }
