@@ -19,52 +19,57 @@ public class FilesBackedTasksManager extends InMemoryTaskManager implements Task
 
     private void save() {
 
-        StringBuilder sb = new StringBuilder();
+        StringBuilder resultStringBuilder = new StringBuilder();
 
-        sb.append("id,type,name,status,description,epic\n");
+        resultStringBuilder.append("id,type,name,status,description,epic\n");
 
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename))) {
+        try (BufferedWriter bufferWriter = new BufferedWriter(new FileWriter(filename))) {
 
-            List<Task> sortedListById = getHistoryManager().getHistory();
+            List<Task> tasksFromHistory = getHistoryManager().getHistory();
             List<String> idsList = new ArrayList<>();
 
-            for (Task t :
-                    sortedListById) {
-                idsList.add(Integer.toString(t.getTaskId()));
+            // An ids string.
+            for (Task oneTask :
+                    tasksFromHistory) {
+                idsList.add(Integer.toString(oneTask.getTaskId()));
             }
 
-            Collections.sort(sortedListById);
+            // Sort list of tasks by ID.
+            Collections.sort(tasksFromHistory);
 
-            for (Task t :
-                    sortedListById) {
+            for (Task oneTask :
+                    tasksFromHistory) {
 
-                List<String> specOfTask = new ArrayList<>();
+                List<String> listOfTaskMembers = new ArrayList<>();
+                boolean isSubTask = false;
 
-                specOfTask.add(Integer.toString(t.getTaskId()));
+                listOfTaskMembers.add(Integer.toString(oneTask.getTaskId()));
 
-                if (t instanceof Epic) {
-                    specOfTask.add("EPIC");
-                } else if (t instanceof SubTask) {
-                    specOfTask.add("SUBTASK");
-                    SubTask sT = (SubTask) t;
-                    specOfTask.add(Integer.toString(sT.getEpicId()));
+                if (oneTask instanceof Epic) {
+                    listOfTaskMembers.add("EPIC");
+                } else if (oneTask instanceof SubTask) {
+                    isSubTask = true;
+                    listOfTaskMembers.add("SUBTASK");
                 } else {
-                    specOfTask.add("TASK");
+                    listOfTaskMembers.add("TASK");
                 }
 
-                specOfTask.add(t.getNameTask());
-                specOfTask.add(t.getStatus().toString());
-                specOfTask.add(t.getDescriptionTask());
+                listOfTaskMembers.add(oneTask.getNameTask());
+                listOfTaskMembers.add(oneTask.getStatus().toString());
+                listOfTaskMembers.add(oneTask.getDescriptionTask());
 
-                sb.append(String.join(",", specOfTask));
-                sb.append("\n");
-                // todo: put "epic"  field logic here
+                if (isSubTask) {
+                    listOfTaskMembers.add(Integer.toString(((SubTask) oneTask).getEpicId()));
+                }
+
+                resultStringBuilder.append(String.join(",", listOfTaskMembers));
+                resultStringBuilder.append("\n");
             }
 
-            sb.append("\n");
-            sb.append(String.join(",", idsList));
+            resultStringBuilder.append("\n");
+            resultStringBuilder.append(String.join(",", idsList));
 
-            bw.write(sb.toString());
+            bufferWriter.write(resultStringBuilder.toString());
         } catch (IOException e) {
             System.out.println("IOException is here!");
         }
