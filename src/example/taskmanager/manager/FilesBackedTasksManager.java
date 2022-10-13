@@ -17,7 +17,9 @@ public class FilesBackedTasksManager extends InMemoryTaskManager implements Task
 
     private void restore() {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filename))) {
-            StringReader sr = new StringReader();
+            StringBuilder sb = new StringBuilder();
+
+            while ()
 
         } catch (IOException e) {
             System.out.println("IOException is here!");
@@ -35,13 +37,11 @@ public class FilesBackedTasksManager extends InMemoryTaskManager implements Task
             List<Task> tasksFromHistory = getHistoryManager().getHistory();
             List<String> idsList = new ArrayList<>();
 
-            // An ids string.
             for (Task oneTask :
                     tasksFromHistory) {
                 idsList.add(Integer.toString(oneTask.getTaskId()));
             }
 
-            // Sort list of tasks by ID.
             Collections.sort(tasksFromHistory);
 
             for (Task oneTask :
