@@ -4,9 +4,7 @@ import example.taskmanager.task.Epic;
 import example.taskmanager.task.SubTask;
 import example.taskmanager.task.Task;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 public class FilesBackedTasksManager extends InMemoryTaskManager implements TaskManager {
@@ -15,6 +13,15 @@ public class FilesBackedTasksManager extends InMemoryTaskManager implements Task
 
     public FilesBackedTasksManager(String filename) {
         this.filename = filename;
+    }
+
+    private void restore() {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filename))) {
+            StringReader sr = new StringReader();
+
+        } catch (IOException e) {
+            System.out.println("IOException is here!");
+        }
     }
 
     private void save() {
