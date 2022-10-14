@@ -13,17 +13,26 @@ public class FilesBackedTasksManager extends InMemoryTaskManager implements Task
 
     public FilesBackedTasksManager(String filename) {
         this.filename = filename;
+        restore();
     }
 
     private void restore() {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filename))) {
-            StringBuilder sb = new StringBuilder();
 
-            while ()
+            String testString;
+            StringBuilder testStringBuilder = new StringBuilder();
+
+            while ((testString = bufferedReader.readLine()) != null)    {
+                testStringBuilder.append(testString);
+                testStringBuilder.append('\n');
+            }
 
         } catch (IOException e) {
             System.out.println("IOException is here!");
         }
+
+
+
     }
 
     private void save() {
@@ -37,11 +46,13 @@ public class FilesBackedTasksManager extends InMemoryTaskManager implements Task
             List<Task> tasksFromHistory = getHistoryManager().getHistory();
             List<String> idsList = new ArrayList<>();
 
+            // An ids string.
             for (Task oneTask :
                     tasksFromHistory) {
                 idsList.add(Integer.toString(oneTask.getTaskId()));
             }
 
+            // Sort list of tasks by ID.
             Collections.sort(tasksFromHistory);
 
             for (Task oneTask :
