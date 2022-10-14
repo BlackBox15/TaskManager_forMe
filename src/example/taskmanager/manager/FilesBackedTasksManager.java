@@ -13,15 +13,26 @@ public class FilesBackedTasksManager extends InMemoryTaskManager implements Task
 
     public FilesBackedTasksManager(String filename) {
         this.filename = filename;
+        restore();
     }
 
     private void restore() {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filename))) {
-            StringReader sr = new StringReader();
+
+            String testString;
+            StringBuilder testStringBuilder = new StringBuilder();
+
+            while ((testString = bufferedReader.readLine()) != null)    {
+                testStringBuilder.append(testString);
+                testStringBuilder.append('\n');
+            }
 
         } catch (IOException e) {
             System.out.println("IOException is here!");
         }
+
+
+
     }
 
     private void save() {
