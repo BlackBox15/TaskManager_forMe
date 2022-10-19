@@ -5,7 +5,11 @@ import example.taskmanager.task.SubTask;
 import example.taskmanager.task.Task;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
+
+import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
 
 public class FilesBackedTasksManager extends InMemoryTaskManager implements TaskManager {
 
@@ -17,20 +21,25 @@ public class FilesBackedTasksManager extends InMemoryTaskManager implements Task
     }
 
     private void restore() {
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filename))) {
 
-            String testString;
-            StringBuilder testStringBuilder = new StringBuilder();
+        if (Files.exists(Path.of(filename), NOFOLLOW_LINKS)) {
 
-            while ((testString = bufferedReader.readLine()) != null)    {
-                testStringBuilder.append(testString);
-                testStringBuilder.append('\n');
+            try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filename))) {
+
+                String testString;
+                StringBuilder testStringBuilder = new StringBuilder();
+
+                while ((testString = bufferedReader.readLine()) != null)    {
+                    testStringBuilder.append(testString);
+                    testStringBuilder.append('\n');
+                }
+
+                testString = testStringBuilder.toString();
+
+            } catch (IOException e) {
+                System.out.println("IOException is here!");
             }
-
-        } catch (IOException e) {
-            System.out.println("IOException is here!");
         }
-
 
 
     }
